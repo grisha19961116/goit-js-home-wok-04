@@ -1,26 +1,29 @@
 // Завдання 1
-// Напиши скрипт, який, для об'єкта user, послідовно:
+// Розстав відсутні this в методах об'єкта account.
 
-// додає поле mood зі значенням 'happy'
-// замінює значення hobby на 'skydiving'
-// замінює значення premium на false
-// виводить вміст об'єкта user в форматі ключ:значення використовуючи Object.keys() і for...of
-const user = {
-  name: 'Mango',
-  age: 20,
-  hobby: 'html',
-  premium: true,
+const account = {
+  owner: 'Mango',
+  balance: 24000,
+  discount: 0.1,
+  orders: ['order-1', 'order-2', 'order-3'],
+  changeDiscount(value) {
+    // discount = value;
+    this.discount = value;
+  },
+  showOrders() {
+    return this.orders;
+  },
+  addOrder(cost, order) {
+    this.balance -= cost;
+    this.orders.push(order);
+  },
 };
-console.log(user);
-// before changes
-user.mood = 'happy';
-user.hobby = 'skydiving';
-user.premium = 'false';
-console.log(user);
-// after changes
-const keys = Object.keys(user);
-for(const keyValue of keys){
- console.log(`${keyValue} : ${user[keyValue]}`);
-}
-// show key and him value
 
+account.changeDiscount(0.15);
+console.log(account.discount); // 0.15
+
+console.table(account.showOrders()); // ['order-1', 'order-2', 'order-3']
+
+account.addOrder(5000, 'order-4');
+console.log(account.balance); // 19000
+console.table(account.showOrders()); // ['order-1', 'order-2', 'order-3', 'order-4']

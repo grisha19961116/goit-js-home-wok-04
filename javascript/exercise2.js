@@ -1,30 +1,35 @@
 // Завдання 2
-// Напиши функцію countProps(obj), яка рахує кількість властивостей в об'єкті.
-//  Функція повертає число - кількість властивостей.
-// first solution
-function countProp (object) {
-  let total = 0;
-  const obj = Object.keys(object);
-  return obj.length;
-}
-console.log(countProp({})); // 0
+// Виправ помилки, які будуть в консолі, щоб скрипт запрацював.
 
-console.log(countProp({ name: 'Mango', age: 2 })); // 2
+const inventory = {
+  items: ['Knife', 'Gas mask'],
+  add(itemName) {
+    console.log(`Adding ${itemName} to inventory`);
 
-console.log(countProp({ mail: 'poly@mail.com', isOnline: true, score: 500 })); // 3
-// second solution
-function countProps (object) {
-  let total = 0 ;
-for(const i in object){
-  if(typeof object[i] !== undefined ) total += 1;
-    }
-   return total;
+    inventory.items.push(itemName);
+  },
+  remove(itemName) {
+    console.log(`Removing ${itemName} from inventory`);
+
+    inventory.items = inventory.items.filter(item => item !== itemName);
+  },
 };
-console.log(countProps({})); // 0
+const invokeInventoryAction = function (itemName, action) {
+  console.log(`Invoking action on ${itemName}`);
+  action(itemName);
+};
 
-console.log(countProps({ name: 'Mango', age: 2 })); // 2
+invokeInventoryAction('Medkit', inventory.add);
+// Invoking action on Medkit
+// Adding Medkit to inventory
 
-console.log(countProps({ mail: 'poly@mail.com', isOnline: true, score: 500 })); // 3
+console.log(inventory.items); // ['Knife', 'Gas mask', 'Medkit']
+
+invokeInventoryAction('Gas mask', inventory.remove);
+// Invoking action on Gas mask
+// Removing Gas mask from inventory
+
+console.log(inventory.items); // ['Knife', 'Medkit']
 
 
 
